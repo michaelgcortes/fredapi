@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+# Function to wrap around the FRED API and provide Pythonic interface
 
 def fredpy(series_id, start_date, units):
 
