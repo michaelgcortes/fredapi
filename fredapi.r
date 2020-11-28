@@ -1,11 +1,10 @@
-
+# Packages to load (make sure to install them before hand using function 'install.packages()')
 packages.to.load <- c('httr', 'dplyr', 'lubridate')
 
 lapply(packages.to.load, require, character.only=TRUE)
 
 
 # Function to wrap around FRED API to provide R interface
-
 fredr <- function(series.id, start.date, units){
 
     # Requested key from FRED API website. You must make an account. 
