@@ -1,3 +1,11 @@
+# How to work with APIs from Python and R
+
+# Problem set up: 
+# You need data, and there exists some API that you can get it from. 
+# You want to do it in Python and/or R.
+# How to do it? 
+
+
 # Packages to load (make sure to install them before hand using function 'install.packages()')
 packages.to.load <- c('httr', 'dplyr', 'lubridate')
 
@@ -53,7 +61,6 @@ fredr <- function(series.id, start.date, units){
 
 
 }
-
 
 
 # Run R function to get data from FRED API 

@@ -1,3 +1,10 @@
+# How to work with APIs from Python and R
+
+# Problem set up: 
+# You need data, and there exists some API that you can get it from. 
+# You want to do it in Python and/or R.
+# How to do it? 
+
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
