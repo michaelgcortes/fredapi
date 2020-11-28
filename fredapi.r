@@ -7,7 +7,7 @@
 
 
 # Packages to load (make sure to install them before hand using function 'install.packages()')
-packages.to.load <- c('httr', 'dplyr', 'lubridate')
+packages.to.load <- c('httr', 'dplyr', 'lubridate', 'ggplot2')
 
 lapply(packages.to.load, require, character.only=TRUE)
 
@@ -45,11 +45,17 @@ fredr <- function(series.id, start.date, units){
         dates <- c()
         values <- c()
         for(i in 1:length(obs.data)){
-            dates <- c(dates, obs.data[[i]]$date)
-            values <- c(values, obs.data[[i]]$value)
+            dt <- as.character(obs.data[[i]]$date)
+            val <- as.character(obs.data[[i]]$value)
+
+            dates <- c(dates, dt)
+            values <- c(values, val)
         }
 
-        data <- data.frame(cbind(dates, values)) %>% mutate(values = as.numeric(values))
+        # Force the data values to be character type first
+        data <- data.frame(cbind(dates, values)) %>% mutate(values = as.character(values), dates = as.character(dates)) %>%
+                mutate(values = as.numeric(values), dates = as.Date(dates)) %>% 
+                rename(date = dates, value = values)
 
         colnames(data)[2] <- series.id
 
@@ -64,7 +70,12 @@ fredr <- function(series.id, start.date, units){
 
 
 # Run R function to get data from FRED API 
-df <- fredr(series.id = 'GDP', start.date='2010-01-01', units='lin')
+df <- fredr(series.id = 'GDP', start.date='2010-01-01', units='pc1')
 
 # Preview the data
 head(df)
+
+# Visualize the data
+jpeg('GDP_plot.jpg')
+df %>% ggplot() + geom_line(aes(x=date, y=GDP))
+dev.off()
